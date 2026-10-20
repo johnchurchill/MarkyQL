@@ -1,0 +1,5 @@
+build/
+Resources/js/*
+!Resources/js/.gitkeep
+.DS_Store
+*.o

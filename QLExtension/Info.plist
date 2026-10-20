@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>MarkyQL Preview Extension</string>
+	<key>CFBundleExecutable</key>
+	<string>MarkyQLPreview</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.markyql.app.preview</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>MarkyQL</string>
+	<key>CFBundlePackageType</key>
+	<string>XPC!</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>12.0</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>QLIsDataBasedPreview</key>
+			<false/>
+			<key>QLSupportedContentTypes</key>
+			<array>
+				<string>com.unknown.md</string>
+				<string>com.rstudio.rmarkdown</string>
+				<string>io.typora.markdown</string>
+				<string>net.daringfireball.markdown</string>
+				<string>net.ia.markdown</string>
+				<string>org.apiblueprint.file</string>
+				<string>org.textbundle.package</string>
+				<string>org.quarto.qmarkdown</string>
+				<string>public.markdown</string>
+				<string>com.nutstore.down</string>
+				<string>dyn.ah62d4rv4ge81e5pe</string>
+				<string>dyn.ah62d4rv4ge8043a</string>
+				<string>dyn.ah62d4rv4ge81c5pe</string>
+				<string>dyn.ah62d4rv4ge8043d2</string>
+				<string>dyn.ah62d4rv4ge8043dd</string>
+				<string>dyn.ah62d4rv4ge80c6dmqk</string>
+				<string>dyn.ah62d4rv4ge8043pwrzu0w3a</string>
+			</array>
+			<key>QLSupportsSearchableItems</key>
+			<false/>
+		</dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.quicklook.preview</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>MQPreviewController</string>
+	</dict>
+</dict>
+</plist>
