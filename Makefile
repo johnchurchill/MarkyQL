@@ -104,6 +104,8 @@ install: app
 	rm -rf /Applications/$(APP_NAME).app
 	cp -R $(APP) /Applications/
 	open /Applications/$(APP_NAME).app
+	@sleep 2
+	pluginkit -e use -i com.markyql.app.preview >/dev/null 2>&1 || true
 	qlmanage -r >/dev/null 2>&1 || true
 	@echo "Installed. Select a .md file in Finder and press Space."
 
