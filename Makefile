@@ -64,7 +64,7 @@ js:
 $(BUILD)/MarkyQLPreview: QLExtension/MQPreviewController.m $(SHARED_SRC) $(CMARK_LIBS)
 	@mkdir -p $(BUILD)
 	$(CC) $(OBJCFLAGS) -o $@ QLExtension/MQPreviewController.m $(SHARED_SRC) \
-		$(CMARK_LIBS) -bundle -e _NSExtensionMain \
+		$(CMARK_LIBS) -e _NSExtensionMain \
 		-framework Cocoa -framework Quartz -framework WebKit
 
 $(BUILD)/MarkyQL: App/main.m App/MQAppDelegate.m $(SHARED_SRC) $(CMARK_LIBS)
