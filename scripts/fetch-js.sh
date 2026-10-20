@@ -14,25 +14,43 @@ verify() { # file sha256
         echo "fetch-js: CHECKSUM MISMATCH for $1" >&2; exit 1; }
 }
 
-# --- MathJax 3.2.2 (Apache-2.0): the whole es5 tree, tex-chtml entry ---
-if [ ! -f "$JS/mathjax/es5/tex-chtml.js" ]; then
+# --- MathJax 4.1.3 (Apache-2.0): components live at the package root ---
+if [ ! -f "$JS/mathjax/tex-chtml.js" ]; then
     curl -fL -o "$TMP/mathjax.tgz" \
-        https://registry.npmjs.org/mathjax/-/mathjax-3.2.2.tgz
-    verify "$TMP/mathjax.tgz" 1b9c0a1c44df864e915690558e72adb9cc5203360daefd385084ced3b6c64c09
-    tar -xzf "$TMP/mathjax.tgz" -C "$TMP" package/es5
-    rm -rf "$JS/mathjax/es5"
-    mv "$TMP/package/es5" "$JS/mathjax/es5"
-    echo "fetch-js: MathJax 3.2.2 installed"
+        https://registry.npmjs.org/mathjax/-/mathjax-4.1.3.tgz
+    verify "$TMP/mathjax.tgz" b7109f516f3d842de62b95d653e35fa0976dc223706a2a77440e7f7723f0c54d
+    rm -rf "$JS/mathjax"
+    mkdir -p "$JS/mathjax"
+    tar -xzf "$TMP/mathjax.tgz" -C "$JS/mathjax" --strip-components 1
+    echo "fetch-js: MathJax 4.1.3 installed"
 fi
 
-# --- Mermaid 11.4.1 (MIT): single-file UMD build ---
+# --- MathJax NewCM font 4.1.3 (Apache-2.0) ---
+# In v4 the font is its own package. MathJax's component code resolves
+# it through the loader's `fonts` path (which MQRenderer.m points at
+# the bundled @mathjax folder, so math works fully offline): the font
+# files are used at <fonts>/mathjax-newcm-font/chtml/{woff2,dynamic},
+# which is the package's own layout — extract it unchanged.
+if [ ! -d "$JS/@mathjax/mathjax-newcm-font/chtml" ]; then
+    curl -fL -o "$TMP/newcm.tgz" \
+        https://registry.npmjs.org/@mathjax/mathjax-newcm-font/-/mathjax-newcm-font-4.1.3.tgz
+    verify "$TMP/newcm.tgz" 87d7b869c6a2a6169d9a53acc4eab6c846a9cbe11752738226461bb5070c8b88
+    mkdir -p "$TMP/newcm"
+    tar -xzf "$TMP/newcm.tgz" -C "$TMP/newcm" --strip-components 1
+    rm -rf "$JS/@mathjax"
+    mkdir -p "$JS/@mathjax/mathjax-newcm-font"
+    cp -R "$TMP/newcm/chtml" "$JS/@mathjax/mathjax-newcm-font/chtml"
+    echo "fetch-js: MathJax NewCM font 4.1.3 installed"
+fi
+
+# --- Mermaid 12.0.0 (MIT): single-file UMD build ---
 if [ ! -f "$JS/mermaid/mermaid.min.js" ]; then
     curl -fL -o "$TMP/mermaid.tgz" \
-        https://registry.npmjs.org/mermaid/-/mermaid-11.4.1.tgz
-    verify "$TMP/mermaid.tgz" ec7b61b391aaa24bf666fd20e48d0a626eeb4a95b95bc6b3016a122d7f0bc2af
+        https://registry.npmjs.org/mermaid/-/mermaid-12.0.0.tgz
+    verify "$TMP/mermaid.tgz" 7df1e7de572d26ea7aca5eaa7b0e77f5caacb63567006f4077c2753d730ffd9d
     tar -xzf "$TMP/mermaid.tgz" -C "$TMP" package/dist/mermaid.min.js
     mv "$TMP/package/dist/mermaid.min.js" "$JS/mermaid/mermaid.min.js"
-    echo "fetch-js: Mermaid 11.4.1 installed"
+    echo "fetch-js: Mermaid 12.0.0 installed"
 fi
 
 # --- highlight.js 11.9.0 (BSD-3-Clause) + GitHub themes ---

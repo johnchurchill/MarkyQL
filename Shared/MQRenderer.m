@@ -543,10 +543,15 @@
     NSURL *jsDir = [self.resourceURL URLByAppendingPathComponent:@"js"];
     if (hasMath) {
         // Resources are referenced by absolute file URL so the page works
-        // whatever base URL the preview was loaded with.
-        NSString *mathjax = [[jsDir URLByAppendingPathComponent:@"mathjax/es5/tex-chtml.js"] absoluteString];
-        [doc appendString:@"<script>window.MathJax={tex:{inlineMath:[['\\\\(','\\\\)']],"
-                          @"displayMath:[['\\\\[','\\\\]']]},options:{enableMenu:false}};</script>\n"];
+        // whatever base URL the preview was loaded with. MathJax 4 loads
+        // its font from the CDN by default; the loader's `fonts` path is
+        // pointed at the bundled @mathjax folder so previews work fully
+        // offline and inside the sandbox.
+        NSString *mathjax = [[jsDir URLByAppendingPathComponent:@"mathjax/tex-chtml.js"] absoluteString];
+        NSString *fontsDir = [[jsDir URLByAppendingPathComponent:@"@mathjax"] absoluteString];
+        [doc appendFormat:@"<script>window.MathJax={loader:{paths:{fonts:'%@'}},"
+                          @"tex:{inlineMath:[['\\\\(','\\\\)']],displayMath:[['\\\\[','\\\\]']]},"
+                          @"options:{enableMenu:false}};</script>\n", fontsDir];
         [doc appendFormat:@"<script async src=\"%@\"></script>\n", mathjax];
     }
     [doc appendString:@"</head><body>\n<article class=\"markdown-body\">\n"];

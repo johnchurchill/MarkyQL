@@ -8,8 +8,9 @@ QLMarkdown (GPL-3.0).
 | Component | Version | License | How it is used |
 | --- | --- | --- | --- |
 | [cmark-gfm](https://github.com/github/cmark-gfm) | 0.29.0.gfm.13 (commit `587a12bb`) | MIT | Markdown parser, linked as a static library (git submodule) |
-| [MathJax](https://www.mathjax.org) | 3.2.2 | Apache-2.0 | Renders TeX math in the preview (bundled at build time) |
-| [Mermaid](https://mermaid.js.org) | 11.4.1 | MIT | Renders `mermaid` fenced blocks as diagrams (bundled at build time) |
+| [MathJax](https://www.mathjax.org) | 4.1.3 | Apache-2.0 | Renders TeX math in the preview (bundled at build time) |
+| [MathJax NewCM font](https://github.com/mathjax/MathJax-src) (`@mathjax/mathjax-newcm-font`) | 4.1.3 | Apache-2.0 | Font files the MathJax 4 CHTML output loads (separate package since v4) |
+| [Mermaid](https://mermaid.js.org) | 12.0.0 | MIT | Renders `mermaid` fenced blocks as diagrams (bundled at build time) |
 | [highlight.js](https://highlightjs.org) | 11.9.0 | BSD-3-Clause | Syntax highlighting in the preview (bundled at build time) |
 | [gemoji](https://github.com/github/gemoji) database | commit `fadaeaf1` | MIT | Emoji shortcode data (`emoji.json`, fetched at build time) |
 
