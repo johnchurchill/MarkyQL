@@ -162,8 +162,7 @@ static NSString * const MQSampleMarkdown =
     [self.themePopup addItemsWithTitles:@[@"GitHub theme", @"Custom CSS file…"]];
     self.themePopup.target = self;
     self.themePopup.action = @selector(themeChanged:);
-    self.themePopup.selectedItem = [self.settings.themeName isEqualToString:@"custom"]
-        ? self.themePopup.lastItem : self.themePopup.firstItem;
+    [self.themePopup selectItemAtIndex:[self.settings.themeName isEqualToString:@"custom"] ? 1 : 0];
     [form addArrangedSubview:self.themePopup];
 
     NSStackView *fontRow = [NSStackView stackViewWithViews:@[
@@ -225,7 +224,7 @@ static NSString * const MQSampleMarkdown =
     bar.translatesAutoresizingMaskIntoConstraints = NO;
     NSView *spacer = [[NSView alloc] init];
     [spacer setContentHuggingPriority:NSLayoutPriorityDefaultLow forOrientation:NSLayoutConstraintOrientationHorizontal];
-    [bar insertView:spacer atIndex:3 gravity:NSStackViewGravityLeading];
+    [bar insertView:spacer atIndex:3 inGravity:NSStackViewGravityLeading];
 
     NSView *content = self.window.contentView;
     [content addSubview:split];
@@ -266,7 +265,7 @@ static NSString * const MQSampleMarkdown =
         self.settings.themeName = @"custom";
         self.settings.customCSSPath = panel.URL.path;
     } else {
-        sender.selectedItem = sender.firstItem;
+        [sender selectItemAtIndex:0];
         self.settings.themeName = @"github";
     }
     [self refreshPreview];
